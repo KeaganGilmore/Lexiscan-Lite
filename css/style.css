@@ -1,426 +1,491 @@
-/* CSS Reset & Variables */
+/* ========================================
+   Lexiscan-Lite - Clinical Screening Tool
+   ======================================== */
+
 :root {
-    /* Premium Clinical Palette */
-    --color-bg-primary: #F8FAFC;
-    --color-bg-surface: #FFFFFF;
-    --color-primary: #0F172A;
-    /* Slate 900 */
-    --color-primary-light: #334155;
-    /* Slate 700 */
-    --color-accent: #3B82F6;
-    /* Blue 500 */
-    --color-accent-hover: #2563EB;
-    /* Blue 600 */
-    --color-success: #10B981;
-    /* Emerald 500 */
-    --color-error: #EF4444;
-    /* Red 500 */
-    --color-text-main: #1E293B;
-    /* Slate 800 */
-    --color-text-muted: #64748B;
-    /* Slate 500 */
-    --color-border: #E2E8F0;
-    /* Slate 200 */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    /* Clinical Palette - Calm, High Contrast, Professional */
+    --color-bg: #F4F6F9;
+    --color-surface: #FFFFFF;
+    --color-primary: #1A2B4A;
+    --color-primary-light: #2D4A7C;
+    --color-accent: #3B7DDD;
+    --color-text: #1A2B4A;
+    --color-text-muted: #6B7A90;
+    --color-border: #DFE3E8;
+    --color-success: #28A745;
+    --color-warning: #FFC107;
 
     /* Typography */
-    --font-heading: 'Outfit', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --font-body: 'Inter', -apple-system, sans-serif;
+    --font-display: 'Lexend', 'Inter', sans-serif;
 
     /* Spacing */
-    --spacing-xs: 0.5rem;
-    --spacing-sm: 1rem;
-    --spacing-md: 1.5rem;
-    --spacing-lg: 2rem;
-    --spacing-xl: 3rem;
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2rem;
+    --space-xl: 3rem;
 
-    /* Border Radius */
+    /* Sizing */
     --radius-sm: 0.375rem;
     --radius-md: 0.5rem;
     --radius-lg: 1rem;
-    --radius-full: 9999px;
 
-    /* Transitions */
-    --transition-base: all 0.2s ease-in-out;
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-* {
+/* Reset */
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+html,
+body {
+    height: 100%;
+}
+
 body {
     font-family: var(--font-body);
-    background-color: var(--color-bg-primary);
-    color: var(--color-text-main);
-    line-height: 1.6;
-    height: 100vh;
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.5;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    /* Prevent scrolling during game */
 }
 
-/* Layout */
+/* ========================================
+   Layout
+   ======================================== */
+
 .app-container {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: var(--space-sm);
     position: relative;
-    padding: var(--spacing-sm);
 }
 
 .screen {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
+    inset: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--color-bg-primary);
-    z-index: 10;
+    background: var(--color-bg);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1;
 }
 
 .screen.active {
     opacity: 1;
     visibility: visible;
-    z-index: 20;
+    z-index: 10;
 }
 
 .content-wrapper {
-    max-width: 600px;
+    max-width: 560px;
     width: 100%;
-    text-align: center;
-    padding: var(--spacing-lg);
-    background: var(--color-bg-surface);
+    background: var(--color-surface);
+    padding: var(--space-lg);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
 }
 
-/* Typography & Headings */
+/* ========================================
+   Typography
+   ======================================== */
+
 h1,
 h2,
 h3 {
-    font-family: var(--font-heading);
+    font-family: var(--font-display);
     color: var(--color-primary);
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--space-sm);
 }
 
 .logo-text {
-    font-size: 3rem;
-    letter-spacing: -0.02em;
+    font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
 }
 
-.highlight {
+.logo-text .highlight {
     color: var(--color-accent);
 }
 
 .subtitle {
+    font-size: 1.1rem;
     color: var(--color-text-muted);
-    font-size: 1.125rem;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--space-lg);
 }
 
-/* Buttons */
+/* ========================================
+   Buttons
+   ======================================== */
+
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: 0.75rem 1.5rem;
-    border-radius: var(--radius-md);
-    font-weight: 500;
-    font-family: var(--font-heading);
-    cursor: pointer;
-    transition: var(--transition-base);
-    border: none;
+    font-family: var(--font-display);
     font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
     text-decoration: none;
 }
 
 .btn.primary {
-    background-color: var(--color-primary);
+    background: var(--color-primary);
     color: white;
 }
 
 .btn.primary:hover {
-    background-color: var(--color-primary-light);
+    background: var(--color-primary-light);
     transform: translateY(-1px);
 }
 
 .btn.secondary {
-    background-color: transparent;
+    background: transparent;
     color: var(--color-text-muted);
     border: 1px solid var(--color-border);
 }
 
 .btn.secondary:hover {
-    background-color: var(--color-bg-primary);
-    color: var(--color-text-main);
+    background: var(--color-bg);
+    color: var(--color-text);
 }
 
 .btn.large {
-    font-size: 1.25rem;
-    padding: 1rem 2.5rem;
+    font-size: 1.15rem;
+    padding: 1rem 2rem;
     width: 100%;
-    max-width: 300px;
+    max-width: 280px;
 }
 
-/* Info Card */
-.info-card {
-    background-color: var(--color-bg-primary);
-    padding: var(--spacing-md);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border);
-    margin-bottom: var(--spacing-lg);
-}
-
-.features-grid {
-    display: flex;
-    justify-content: space-around;
-    margin-top: var(--spacing-md);
-}
-
-.feature-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
+.btn.small {
     font-size: 0.875rem;
-    font-weight: 500;
+    padding: 0.5rem 1rem;
+}
+
+/* ========================================
+   Landing Screen
+   ======================================== */
+
+.info-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin-bottom: var(--space-lg);
+    text-align: left;
+}
+
+.info-card p {
+    margin-bottom: var(--space-sm);
+}
+
+.feature-list {
+    list-style: none;
+}
+
+.feature-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) 0;
+    font-size: 0.95rem;
     color: var(--color-text-muted);
 }
 
-.feature-item .icon {
-    font-size: 1.5rem;
+.feature-list .icon {
+    font-size: 1.1rem;
 }
 
-.disclaimer-text {
-    font-size: 0.75rem;
+.disclaimer {
+    font-size: 0.8rem;
     color: var(--color-text-muted);
-    margin-top: var(--spacing-md);
+    margin-top: var(--space-md);
+    line-height: 1.4;
 }
 
-/* Gameplay Area */
+/* ========================================
+   Instructions Screen
+   ======================================== */
+
+.instruction-text {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
+}
+
+/* ========================================
+   Game Screen
+   ======================================== */
+
+#screen-game {
+    padding: 0;
+}
+
 .game-hud {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    padding: var(--spacing-md);
+    right: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--color-bg-surface);
-    box-shadow: var(--shadow-sm);
-    z-index: 30;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    z-index: 20;
 }
 
-.hud-item {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-}
-
-.hud-item .label {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+.task-label {
+    font-family: var(--font-display);
     font-weight: 600;
-}
-
-.hud-item .value {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1.25rem;
+    font-size: 1rem;
     color: var(--color-primary);
 }
 
-.timer-bar-container {
-    width: 200px;
-    height: 8px;
-    background-color: var(--color-border);
-    border-radius: var(--radius-full);
-    overflow: hidden;
+.progress-text {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
 }
 
-.timer-bar {
+.progress-bar-container {
+    position: absolute;
+    top: 52px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--color-border);
+    z-index: 20;
+}
+
+.progress-bar {
     height: 100%;
-    background-color: var(--color-accent);
-    width: 100%;
-    transition: width 0.1s linear, background-color 0.3s ease;
+    background: var(--color-accent);
+    transition: width 0.3s ease;
+    width: 0%;
 }
 
-.timer-bar.warning {
-    background-color: var(--color-error);
-}
-
-/* Game Board */
 .game-area {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 800px;
     height: 100%;
-    margin-top: 60px;
-    /* Space for HUD */
+    padding-top: 80px;
+    padding-bottom: 60px;
 }
 
+/* Stimulus */
 .stimulus-container {
-    margin-bottom: var(--spacing-lg);
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    min-height: 3rem;
-    /* Prevent layout shift */
-}
-
-#stimulus-text {
-    font-family: var(--font-heading);
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--color-primary);
-}
-
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-md);
-    width: 100%;
-    padding: var(--spacing-md);
-    max-width: 600px;
-}
-
-.grid-item {
-    background: var(--color-bg-surface);
-    border: 2px solid var(--color-border);
-    border-radius: var(--radius-md);
-    aspect-ratio: 1;
-    /* Square */
+    margin-bottom: var(--space-lg);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font-heading);
+    gap: var(--space-sm);
+    min-height: 80px;
+}
+
+.stimulus-container.hidden {
+    visibility: hidden;
+}
+
+.stimulus-text {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    transition: opacity 0.1s ease;
+}
+
+.stimulus-text.masked {
+    opacity: 0;
+}
+
+.audio-icon {
+    font-size: 2rem;
+}
+
+.audio-icon.hidden {
+    display: none;
+}
+
+/* Grid */
+.grid-container {
+    display: grid;
+    gap: var(--space-md);
+    width: 100%;
+    max-width: 500px;
+    padding: 0 var(--space-md);
+}
+
+.grid-container.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-container.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-container.grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-item {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
     font-size: 2.5rem;
     font-weight: 600;
     color: var(--color-primary);
+    background: var(--color-surface);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
     cursor: pointer;
-    transition: var(--transition-base);
+    transition: all 0.15s ease;
     user-select: none;
-    box-shadow: var(--shadow-sm);
+    -webkit-tap-highlight-color: transparent;
 }
 
 .grid-item:hover {
     border-color: var(--color-accent);
     transform: scale(1.02);
-    box-shadow: var(--shadow-md);
 }
 
 .grid-item:active {
     transform: scale(0.98);
 }
 
-.grid-item.correct {
-    background-color: #ECFDF5;
-    border-color: var(--color-success);
-    color: var(--color-success);
+.grid-item.binary-choice {
+    aspect-ratio: auto;
+    padding: var(--space-md) var(--space-lg);
+    font-size: 1.5rem;
 }
 
-.grid-item.incorrect {
-    background-color: #FEF2F2;
-    border-color: var(--color-error);
-    color: var(--color-error);
+/* ========================================
+   Results Screen
+   ======================================== */
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--color-success);
+    color: white;
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-md);
 }
 
-/* Footer */
+.download-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin: var(--space-lg) 0;
+}
+
+.clinical-notes {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    text-align: left;
+    margin-bottom: var(--space-lg);
+}
+
+.clinical-notes h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-xs);
+}
+
+.clinical-notes p {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-xs);
+}
+
+.clinical-notes ul {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-left: var(--space-md);
+    margin-bottom: var(--space-sm);
+}
+
+.clinical-notes .note {
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+
 .main-footer {
     position: fixed;
     bottom: 0;
-    width: 100%;
-    padding: var(--spacing-sm);
-    text-align: center;
-    background-color: var(--color-bg-surface);
+    left: 0;
+    right: 0;
+    padding: var(--space-sm);
+    background: var(--color-surface);
     border-top: 1px solid var(--color-border);
-    color: var(--color-text-muted);
+    text-align: center;
     font-size: 0.75rem;
+    color: var(--color-text-muted);
     z-index: 30;
 }
 
-/* Utilities */
+/* ========================================
+   Utilities
+   ======================================== */
+
 .hidden {
     display: none !important;
 }
 
-/* Animations */
-@keyframes checkmark {
-    0% {
-        stroke-dashoffset: 100px
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 600px) {
+    .content-wrapper {
+        padding: var(--space-md);
+        margin: var(--space-sm);
     }
 
-    100% {
-        stroke-dashoffset: 0px
-    }
-}
-
-@keyframes checkmark-circle {
-    0% {
-        stroke-dashoffset: 480px
+    .logo-text {
+        font-size: 2rem;
     }
 
-    100% {
-        stroke-dashoffset: 960px
+    .stimulus-text {
+        font-size: 3rem;
     }
-}
 
-.success-animation {
-    margin: 20px auto;
-}
-
-.checkmark {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    display: block;
-    stroke-width: 2;
-    stroke: var(--color-success);
-    stroke-miterlimit: 10;
-    box-shadow: inset 0px 0px 0px var(--color-success);
-    animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
-}
-
-.checkmark__circle {
-    stroke-dasharray: 166;
-    stroke-dashoffset: 166;
-    stroke-width: 2;
-    stroke-miterlimit: 10;
-    stroke: var(--color-success);
-    fill: none;
-    animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-}
-
-.checkmark__check {
-    transform-origin: 50% 50%;
-    stroke-dasharray: 48;
-    stroke-dashoffset: 48;
-    animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
-}
-
-@keyframes stroke {
-    100% {
-        stroke-dashoffset: 0;
+    .grid-item {
+        font-size: 2rem;
     }
 }

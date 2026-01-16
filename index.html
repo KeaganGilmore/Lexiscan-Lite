@@ -1,118 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lexiscan-Lite | Dyslexia Screening Tool</title>
-    <meta name="description" content="A clinical screening tool for early adolescent dyslexia detection.">
+    <meta name="description" content="Clinical screening tool for early adolescent dyslexia detection.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <main class="app-container">
+
         <!-- Landing Screen -->
         <section id="screen-landing" class="screen active">
             <div class="content-wrapper">
                 <header class="hero">
                     <h1 class="logo-text">Lexiscan<span class="highlight">Lite</span></h1>
-                    <p class="subtitle">Early Adolescent Dyslexia Screening Tool</p>
+                    <p class="subtitle">Dyslexia Screening Tool for Ages 10-14</p>
                 </header>
-                
+
                 <div class="info-card">
-                    <p>This tool screens for reading and phonological skills through brief, interactive tasks. It is designed for ages 10-14.</p>
-                    <div class="features-grid">
-                        <div class="feature-item">
-                            <span class="icon">⏱️</span>
-                            <span>~10 Minutes</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="icon">🔒</span>
-                            <span>100% Private</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="icon">📊</span>
-                            <span>Instant Report</span>
-                        </div>
-                    </div>
+                    <p>This tool screens for reading and phonological processing through a series of brief tasks.</p>
+                    <ul class="feature-list">
+                        <li><span class="icon">⏱</span> Takes approximately 5-10 minutes</li>
+                        <li><span class="icon">🔒</span> No personal data is collected or stored</li>
+                        <li><span class="icon">📊</span> Results are available for download at the end</li>
+                    </ul>
                 </div>
 
-                <button id="btn-start-intro" class="btn primary large">Start Screening</button>
-                <p class="disclaimer-text">Note: This is a screening tool, not a medical diagnosis.</p>
+                <button id="btn-start" class="btn primary large">Begin Screening</button>
+
+                <p class="disclaimer">
+                    <strong>Note:</strong> This is a screening tool, not a clinical diagnosis.
+                    Results should be reviewed by a qualified professional.
+                </p>
             </div>
         </section>
 
-        <!-- Instruction/Transition Screen -->
+        <!-- Instructions Screen -->
         <section id="screen-instructions" class="screen">
             <div class="content-wrapper">
-                <h2 id="instruction-title">Instructions</h2>
-                <div id="instruction-content" class="instruction-box">
-                    <!-- Dynamic Content -->
-                </div>
-                <button id="btn-start-level" class="btn primary">I'm Ready</button>
+                <h2 id="instruction-title">Task Name</h2>
+                <p id="instruction-content" class="instruction-text">Instructions go here.</p>
+                <button id="btn-continue" class="btn primary">Continue</button>
             </div>
         </section>
 
-        <!-- Gameplay Screen -->
+        <!-- Game Screen -->
         <section id="screen-game" class="screen">
             <header class="game-hud">
-                <div class="hud-item level-info">
-                    <span class="label">Level</span>
-                    <span id="display-level" class="value">1/7</span>
+                <div class="hud-left">
+                    <span id="task-label" class="task-label">Task</span>
                 </div>
-                <div class="hud-item timer-info">
-                    <div class="timer-bar-container">
-                        <div id="timer-bar" class="timer-bar"></div>
-                    </div>
+                <div class="hud-right">
+                    <span id="progress-text" class="progress-text">1 / 10</span>
                 </div>
             </header>
 
-            <div id="game-area" class="game-area">
+            <div class="progress-bar-container">
+                <div id="timer-bar" class="progress-bar"></div>
+            </div>
+
+            <div class="game-area">
                 <div id="stimulus-container" class="stimulus-container hidden">
-                    <!-- Targeted letter/word/sound prompt -->
-                    <div id="stimulus-text"></div>
-                    <button id="btn-audio-replay" class="btn-icon hidden">🔊</button>
+                    <span id="stimulus-text" class="stimulus-text"></span>
+                    <span id="audio-icon" class="audio-icon hidden">🔊</span>
                 </div>
 
                 <div id="grid-container" class="grid-container">
-                    <!-- Dynamic grid items generated by JS -->
+                    <!-- Dynamic content -->
                 </div>
-            </div>
-
-            <div id="feedback-overlay" class="feedback-overlay hidden">
-                <span id="feedback-icon" class="feedback-icon"></span>
             </div>
         </section>
 
         <!-- Results Screen -->
         <section id="screen-results" class="screen">
             <div class="content-wrapper">
+                <div class="success-icon">✓</div>
                 <h2>Screening Complete</h2>
-                <div class="success-animation">
-                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                    </svg>
+                <p>Thank you for completing the screening. The results are ready for download.</p>
+
+                <div class="download-options">
+                    <button id="btn-download-csv" class="btn primary">Download CSV Report</button>
+                    <button id="btn-download-json" class="btn secondary">Download Raw Data (JSON)</button>
                 </div>
-                <p>Thank you for completing the screening. Your results are ready.</p>
-                
-                <div class="action-card">
-                    <h3>Download Report</h3>
-                    <p>Get a detailed JSON/CSV file for professional review.</p>
-                    <button id="btn-download" class="btn primary">Download Results</button>
+
+                <div class="clinical-notes">
+                    <h3>For Counselors</h3>
+                    <p>The CSV report includes:</p>
+                    <ul>
+                        <li>Task-by-task accuracy and reaction times</li>
+                        <li>Repeated error patterns (confusion matrix)</li>
+                        <li>Attention stability metrics (RT variance)</li>
+                        <li>Pseudoword vs real-word performance comparison</li>
+                    </ul>
+                    <p class="note">This is a screening tool. Positive indicators warrant further evaluation by a
+                        qualified specialist.</p>
                 </div>
-                
-                <button id="btn-restart" class="btn secondary">Start New Session</button>
+
+                <button id="btn-restart" class="btn secondary small">Start New Session</button>
             </div>
         </section>
+
     </main>
 
     <footer class="main-footer">
         <p>&copy; 2026 LX Library. All rights reserved.</p>
     </footer>
 
-    <!-- Scripts -->
     <script type="module" src="js/main.js"></script>
 </body>
+
 </html>

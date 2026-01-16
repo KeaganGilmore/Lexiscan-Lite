@@ -1,50 +1,69 @@
 /**
- * Audio Manager
- * Handles text-to-speech and sound effects.
+ * Lexiscan-Lite - Audio Manager
+ * Handles phoneme pronunciation with consistent, neutral delivery.
  */
 export default class AudioManager {
     constructor() {
         this.synth = window.speechSynthesis;
         this.voices = [];
         this.preferredVoice = null;
+        this.isReady = false;
 
-        // Initialize voices
+        // Load voices
         if (speechSynthesis.onvoiceschanged !== undefined) {
-            speechSynthesis.onvoiceschanged = () => {
-                this.loadVoices();
-            };
+            speechSynthesis.onvoiceschanged = () => this.loadVoices();
         }
         this.loadVoices();
     }
 
     loadVoices() {
         this.voices = this.synth.getVoices();
-        // Try to find a premium/natural sounding voice
-        // Prioritize Google US English or similar
-        this.preferredVoice = this.voices.find(voice =>
-            voice.name.includes('Google US English') ||
-            voice.name.includes('Samantha')
+        // Prefer neutral, clear voices
+        this.preferredVoice = this.voices.find(v =>
+            v.name.includes('Google US English') ||
+            v.name.includes('Microsoft Zira') ||
+            v.name.includes('Samantha') ||
+            v.lang.startsWith('en')
         ) || this.voices[0];
+
+        this.isReady = this.voices.length > 0;
     }
 
+    /**
+     * Speak a phoneme clearly and neutrally.
+     * @param {string} text - The phoneme or letter to speak
+     * @returns {Promise} - Resolves when speech is complete
+     */
     speak(text) {
+        return new Promise((resolve) => {
+            if (this.synth.speaking) {
+                this.synth.cancel();
+            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+
+            if (this.preferredVoice) {
+                utterance.voice = this.preferredVoice;
+            }
+
+            // Clinical settings: clear, neutral, consistent
+            utterance.rate = 0.8;    // Slightly slower for clarity
+            utterance.pitch = 1.0;   // Neutral pitch
+            utterance.volume = 1.0;  // Full volume
+
+            utterance.onend = () => resolve();
+            utterance.onerror = () => resolve(); // Don't block on errors
+
+            this.synth.speak(utterance);
+        });
+    }
+
+    /**
+     * Cancel any ongoing speech
+     */
+    cancel() {
         if (this.synth.speaking) {
             this.synth.cancel();
         }
-
-        const utterThis = new SpeechSynthesisUtterance(text);
-        if (this.preferredVoice) {
-            utterThis.voice = this.preferredVoice;
-        }
-        utterThis.rate = 0.9; // Slightly slower for clarity
-        utterThis.pitch = 1;
-        this.synth.speak(utterThis);
-    }
-
-    playFeedback(isCorrect) {
-        // Placeholder for simple beep sounds or UI clicks
-        // In a full implementation, we'd use Audio() with mp3 files
-        // For now, we keep it silent or use simple oscillator if robust web audio needed
-        // Keeping it silent to "remain clinical" per user request (no wrong buzzer)
     }
 }
